@@ -10,7 +10,6 @@ if (!class_exists(\Common\TraitModule::class)) {
 
 use Common\Stdlib\PsrMessage;
 use Common\TraitModule;
-use Laminas\EventManager\Event;
 use Laminas\EventManager\SharedEventManagerInterface;
 use Laminas\Mvc\MvcEvent;
 use Omeka\Module\AbstractModule;
@@ -94,17 +93,4 @@ class Module extends AbstractModule
         );
     }
 
-    public function handleSiteSettings(Event $event): void
-    {
-        // Check site settings, because array options cannot be set by default
-        // automatically.
-        $settings = $this->getServiceLocator()->get('Omeka\Settings\Site');
-        $exist = $settings->get('reference_resource_name');
-        if ($exist === null) {
-            $config = $this->getConfig();
-            $settings->set('reference_options', $config['reference']['site_settings']['reference_options']);
-            $settings->set('reference_slugs', $config['reference']['site_settings']['reference_slugs']);
-        }
-        $this->handleAnySettings($event, 'site_settings');
-    }
 }
