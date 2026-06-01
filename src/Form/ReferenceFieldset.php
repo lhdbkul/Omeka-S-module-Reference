@@ -73,6 +73,7 @@ class ReferenceFieldset extends Fieldset
                         'item_sets' => 'Item sets',  // @translate
                         'items' => 'Items',  // @translate
                         // 'media' => 'Media',  // @translate
+                        'digital_objects' => 'Digital objects',  // @translate
                     ],
                 ],
                 'attributes' => [

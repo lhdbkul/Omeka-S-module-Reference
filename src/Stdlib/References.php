@@ -816,7 +816,7 @@ class References
             $options['meta_options'] = [];
         }
 
-        $resourceName = in_array($options['resource_name'], ['items', 'item_sets', 'media', 'resources', 'annotations'])
+        $resourceName = in_array($options['resource_name'], ['items', 'item_sets', 'media', 'resources', 'annotations', 'digital_objects'])
             ? $options['resource_name']
             : $defaultOptions['resource_name'];
         $first = !empty($options['first']);
@@ -3352,6 +3352,7 @@ class References
             'items' => 'item',
             'media' => 'media',
             'item_sets' => 'item_set',
+            'digital_objects' => 'digital_object',
             'resource_classes' => 'resource_class',
             'resource_templates' => 'resource_template',
             'annotations' => 'annotation',
@@ -3363,6 +3364,7 @@ class References
             \Omeka\Entity\ResourceClass::class => 'resource_class',
             \Omeka\Entity\ResourceTemplate::class => 'resource_template',
             \Annotate\Entity\Annotation::class => 'annotation',
+            \DigitalObject\Entity\DigitalObject::class => 'digital_object',
         ];
         return $resourceNamesToTables[$resourceName] ?? null;
     }
