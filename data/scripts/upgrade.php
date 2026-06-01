@@ -740,7 +740,7 @@ if (version_compare($oldVersion, '3.4.58', '<')) {
     $message = new PsrMessage(
         'A new {link}admin page{link_end} is available to browse all references (properties and classes) with their counts and values.', // @translate
         [
-            'link' => sprintf('<a href="%s">', $url('admin') . '/reference'),
+            'link' => sprintf('<a href="%s">', htmlspecialchars($url('admin') . '/reference')),
             'link_end' => '</a>',
         ]
     );
