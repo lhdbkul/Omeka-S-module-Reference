@@ -3205,7 +3205,7 @@ class References
             } else {
                 $qb->andWhere('resource.is_public = 1');
             }
-            $results = $this->connection->executeQuery($qb)->fetchAllAssociative();
+            $results = $this->connection->executeQuery($qb->getSQL(), $qb->getParameters())->fetchAllAssociative();
             $this->itemSetsByTitlesAndIds = [];
             foreach ($results as $result) {
                 unset($result['id']);
@@ -3266,7 +3266,7 @@ class References
             } else {
                 $qb->andWhere('resource.is_public = 1');
             }
-            $results = $this->connection->executeQuery($qb)->fetchAllAssociative();
+            $results = $this->connection->executeQuery($qb->getSQL(), $qb->getParameters())->fetchAllAssociative();
             $this->ownersByNameAndIds = [];
             foreach ($results as $result) {
                 unset($result['id']);
@@ -3328,7 +3328,7 @@ class References
             } else {
                 $qb->andWhere('site.is_public = 1');
             }
-            $results = $this->connection->executeQuery($qb)->fetchAllAssociative();
+            $results = $this->connection->executeQuery($qb->getSQL(), $qb->getParameters())->fetchAllAssociative();
             $this->sitesBySlugAndIds = [];
             foreach ($results as $result) {
                 unset($result['id']);

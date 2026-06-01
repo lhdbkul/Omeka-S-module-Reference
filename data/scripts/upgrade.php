@@ -290,7 +290,7 @@ if (version_compare($oldVersion, '3.4.23.3', '<')) {
             )
             ->from('property', 'property')
             ->innerJoin('property', 'vocabulary', 'vocabulary', 'property.vocabulary_id = vocabulary.id');
-        $result = $connection->executeQuery($qb)->fetchAllKeyValue();
+        $result = $connection->executeQuery($qb->getSQL())->fetchAllKeyValue();
         $terms['properties'] = array_map('intval', $result);
 
         $qb = $connection->createQueryBuilder();
@@ -301,7 +301,7 @@ if (version_compare($oldVersion, '3.4.23.3', '<')) {
             )
             ->from('resource_class', 'resource_class')
             ->innerJoin('resource_class', 'vocabulary', 'vocabulary', 'resource_class.vocabulary_id = vocabulary.id');
-        $result = $connection->executeQuery($qb)->fetchAllKeyValue();
+        $result = $connection->executeQuery($qb->getSQL())->fetchAllKeyValue();
         $terms['resource_classes'] = array_map('intval', $result);
 
         return $terms;
@@ -725,7 +725,9 @@ if (version_compare($oldVersion, '3.4.55', '<')) {
         DROP TABLE IF EXISTS reference_metadata;
         SET foreign_key_checks = 1;
         SQL;
-    $connection->executeStatement($sql);
+    foreach (array_filter(array_map('trim', explode(";\n", $sql))) as $sql) {
+        $connection->executeStatement($sql);
+    }
 
     $message = new PsrMessage(
         'The references with single or fallback locales was removed for now due to complex maintainability. The listing of existing references may be different when values have multiple languages. The feature could be reimplemented in a future version.' // @translate
