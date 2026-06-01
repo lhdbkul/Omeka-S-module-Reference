@@ -12,6 +12,9 @@ require dirname(__DIR__, 3) . '/modules/Common/tests/Bootstrap.php';
     [
         'Common',
         'Reference',
+        // Optional: registered globally via STI on resource, so its table must
+        // exist for resource value queries (linked resources).
+        '?DigitalObject',
     ],
     'ReferenceTest',
     __DIR__ . '/ReferenceTest'
