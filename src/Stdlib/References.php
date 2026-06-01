@@ -2724,6 +2724,11 @@ class References
         if (!isset($sqlToIds[$key])) {
             $mainQuery = $this->query;
 
+            // References count values via sql; the matching resource ids must
+            // be the complete set from the database, so this sub query must not
+            // be routed through the search index (option "index").
+            unset($mainQuery['index']);
+
             // When searching by item set or site, remove the matching query
             // filter, else there won't be any results.
             // TODO Check if item sets and sites are still an exception for references.
