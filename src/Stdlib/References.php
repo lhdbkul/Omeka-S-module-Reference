@@ -1089,6 +1089,14 @@ class References
                             : "$mainTypesString AS val"
                     )
                 ;
+                // For a facet limited to linked resources, group by the stored
+                // value_resource_id instead of the joined title: it uses the
+                // index (property_id, value_resource_id) from module Common, so
+                // the aggregation avoids a temporary table and a filesort on
+                // big bases. The title is still output as label via ANY_VALUE.
+                if ($this->supportAnyValue && $mainTypesString === 'value_resource.title') {
+                    $qb->groupBy('value.value_resource_id');
+                }
             }
         }
 
