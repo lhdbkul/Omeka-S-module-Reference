@@ -778,21 +778,21 @@ class References
         if (isset($options['values'])) {
             $options['filters']['values'] ??= $options['values'];
             $this->logger->err(
-                'To get references, to pass the option "values" as main key is deprecated. it should be set as a sub-key of filters.' // @ŧranslate
+                'To get references, to pass the option "values" as main key is deprecated. it should be set as a sub-key of filters.' // @translate
             );
         }
 
         if (isset($options['datatype'])) {
             $options['data_type'] ??= $options['datatype'];
             $this->logger->err(
-                'To get references, to pass the option "data" as main key is deprecated in favor of "data_type".' // @ŧranslate
+                'To get references, to pass the option "data" as main key is deprecated in favor of "data_type".' // @translate
             );
         }
 
         if (isset($options['filters']['datatypes'])) {
             $options['filters']['data_types'] ??= $options['filters']['datatypes'];
             $this->logger->err(
-                'To get references, to pass the option "datatypes" in filters is deprecated in favor of "data_types".' // @ŧranslate
+                'To get references, to pass the option "datatypes" in filters is deprecated in favor of "data_types".' // @translate
             );
         }
 
@@ -886,7 +886,7 @@ class References
         // Clean the empty language as empty string.
         if (in_array('', $options['filters']['languages'], true)) {
             $this->logger->warn(
-                'To get references, the empty string as option for languages is deprecated in favor of null or the string "null".' // @ŧranslate
+                'To get references, the empty string as option for languages is deprecated in favor of null or the string "null".' // @translate
             );
         }
         $noEmptyLanguages = array_diff($options['filters']['languages'], ['null', null, '', 0, '0']);
