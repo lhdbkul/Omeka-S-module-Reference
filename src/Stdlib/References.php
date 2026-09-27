@@ -2733,14 +2733,16 @@ class References
         // be routed through the search index (option "index").
         unset($mainQuery['index']);
 
-        // When searching by item set or site, remove the matching query
-        // filter, else there won't be any results.
-        // TODO Check if item sets and sites are still an exception for references.
+        // The filter on the item set is removed for the list of the item sets,
+        // so the facet lists all of them and another one can be selected: a
+        // resource commonly belongs to many item sets, but with the filter, the
+        // listed ones are only the item sets shared with the filtered one.
+        // The filter on the site is kept: it is the context of the page, that
+        // the counts must follow. The sites of the resources of the query are
+        // listed anyway, a resource belonging commonly to many sites, in
+        // particular when a site aggregates the resources of the other ones.
         if ($type === 'o:item_set') {
             unset($mainQuery['item_set_id']);
-        }
-        if ($type === 'o:site') {
-            unset($mainQuery['site_id']);
         }
 
         // The ids depend only on the normalized query and the resource type,
