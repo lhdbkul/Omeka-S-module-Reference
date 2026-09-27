@@ -2743,12 +2743,14 @@ class References
             unset($mainQuery['site_id']);
         }
 
-        // The ids depend only on the query, the resource type and the type of
-        // field, not on the query builder of the current field: keying the
-        // cache on it ran the same search once by field, so a page with many
-        // facets ran the same search many times, the most costly part of the
-        // process when the query contains a full text search.
-        $key = serialize([$mainQuery, $this->optionsCurrent['resource_name'] ?? null, $type]);
+        // The ids depend only on the normalized query and the resource type,
+        // not on the query builder of the current field, nor on the type of
+        // field, whose only specificity, the filter on the item set, is already
+        // removed above: keying the cache on them ran the same search once by
+        // field, so a page with many facets ran the same search many times, the
+        // most costly part of the process when the query contains a full text
+        // search.
+        $key = serialize([$mainQuery, $this->optionsCurrent['resource_name'] ?? null]);
         if (!isset($sqlToIds[$key])) {
             // In the previous version, the query builder was the orm qb. It is now
             // the dbal qb, so it doesn't manage entities.
