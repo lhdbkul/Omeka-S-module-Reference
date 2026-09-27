@@ -2726,27 +2726,30 @@ class References
             return $this;
         }
 
-        $sql = $qb->getSQL();
-        $params = $qb->getParameters();
-        $key = serialize([$sql, $params, $this->query, $type]);
+        $mainQuery = $this->query;
+
+        // References count values via sql; the matching resource ids must
+        // be the complete set from the database, so this sub query must not
+        // be routed through the search index (option "index").
+        unset($mainQuery['index']);
+
+        // When searching by item set or site, remove the matching query
+        // filter, else there won't be any results.
+        // TODO Check if item sets and sites are still an exception for references.
+        if ($type === 'o:item_set') {
+            unset($mainQuery['item_set_id']);
+        }
+        if ($type === 'o:site') {
+            unset($mainQuery['site_id']);
+        }
+
+        // The ids depend only on the query, the resource type and the type of
+        // field, not on the query builder of the current field: keying the
+        // cache on it ran the same search once by field, so a page with many
+        // facets ran the same search many times, the most costly part of the
+        // process when the query contains a full text search.
+        $key = serialize([$mainQuery, $this->optionsCurrent['resource_name'] ?? null, $type]);
         if (!isset($sqlToIds[$key])) {
-            $mainQuery = $this->query;
-
-            // References count values via sql; the matching resource ids must
-            // be the complete set from the database, so this sub query must not
-            // be routed through the search index (option "index").
-            unset($mainQuery['index']);
-
-            // When searching by item set or site, remove the matching query
-            // filter, else there won't be any results.
-            // TODO Check if item sets and sites are still an exception for references.
-            if ($type === 'o:item_set') {
-                unset($mainQuery['item_set_id']);
-            }
-            if ($type === 'o:site') {
-                unset($mainQuery['site_id']);
-            }
-
             // In the previous version, the query builder was the orm qb. It is now
             // the dbal qb, so it doesn't manage entities.
             // Anyway, the output is only scalar ids.
