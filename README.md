@@ -369,7 +369,7 @@ Performance fixes were made for Article 19.
 [Api Info]: https://gitlab.com/Daniel-KM/Omeka-S-module-ApiInfo
 [Bulk Edit]: https://gitlab.com/Daniel-KM/Omeka-S-module-BulkEdit
 [Bulk Check]: https://gitlab.com/Daniel-KM/Omeka-S-module-BulkCheck
-[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Reference/-/issues
+[module issues]: https://gitlab.com/Daniel-KM/Omeka-S-module-Reference/-/work_items
 [CeCILL v2.1]: https://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html
 [GNU/GPL]: https://www.gnu.org/licenses/gpl-3.0.html
 [FSF]: https://www.fsf.org
